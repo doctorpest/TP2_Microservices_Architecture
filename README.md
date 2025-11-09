@@ -125,7 +125,6 @@ On vérifie que les services suivants démarrent correctement :
 - **rabbitmq**
 
 RabbitMQ est accessible à :    
-
 👉 http://localhost:15672￼    
 _(user: guest, password: guest)_
 
@@ -262,6 +261,7 @@ Ayat Allah EL Anouar, Elmamoune Mikou
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [HTMX](https://htmx.org/)   
+
 
 
 
