@@ -38,6 +38,9 @@ flowchart LR
   R -->|BookingReady| N
 ```
 
+Ce diagramme représente l'architecture globale de notre système de réservation de studio podcast et la communication entre les microservices. L’utilisateur interagit avec le **Booking Service** via une interface REST exposée par le UI/User API. Ce service central orchestre le flux complet de réservation : il publie des événements dans **RabbitMQ**, consommés par les services **Access** et **Quota**, qui génèrent respectivement un code d’accès et réservent un créneau. Une fois ces réponses reçues, le **Booking Service** marque la réservation comme prête et publie l’événement **BookingReady**, consommé par le **Notification Service** qui informe l’utilisateur par un mock e-mail.
+
+
 ### 🗺️ Diagramme de séquence des messages 
 
 ```mermaid
@@ -68,6 +71,8 @@ sequenceDiagram
   B-->>R: StatusUpdated
   R-->>N: StatusUpdated
 ```
+
+Ce diagramme de séquence complète la vision de notre architecture en montrant l’ordre chronologique des échanges. On y observe comment une requête POST /v1/bookings déclenche successivement les événements BookingCreated, AccessCodeIssued, QuotaReserved et BookingReady, suivis des notifications à l’utilisateur. Il illustre également les étapes de check-in et check-out, durant lesquelles le Booking Service publie des événements StatusUpdated afin d’informer le Notification Service des changements d’état.
 
 
 ### 🧠 Description des composants
@@ -261,6 +266,7 @@ Ayat Allah EL Anouar, Elmamoune Mikou
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [HTMX](https://htmx.org/)   
+
 
 
 
