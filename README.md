@@ -176,7 +176,7 @@ curl -X POST http://localhost:8000/v1/bookings \
 
 ### Check-in avec le code d’accès
 
-Faut récupérer le code généré ainsi que l'id de l'utilisateur à partir de la consultation de la réservation qu'on a fait juste auparavant. Faut faire attention le chekin ne passe pas si la date et heure du début de la réservation n'est pas encore arrivé.    
+Faut récupérer le code généré ainsi que l'id de l'utilisateur à partir de la consultation de la réservation qu'on a fait juste auparavant. Faut faire attention le check-in ne passe pas si la date et heure du début de la réservation ne sont pas encore arrivés.    
 
 ```bash
 curl -X POST "http://localhost:8000/v1/bookings/10/checkin?code=707684"
@@ -261,6 +261,7 @@ Ayat Allah EL Anouar, Elmamoune Mikou
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [HTMX](https://htmx.org/)   
+
 
 
 
