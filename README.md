@@ -8,22 +8,15 @@ Chaque service est indépendant et communique via **RabbitMQ** à travers des **
 ## 🧩 Architecture générale
 
 ### 🗺️ Diagramme global
-```
+```mermaid
 flowchart TB
-    %% --- STYLE DEFINITION ---
-    classDef service fill:#f5f5f5,stroke:#333,stroke-width:1px,rx:6px,ry:6px;
-    classDef broker fill:#fff3cd,stroke:#c79a00,stroke-width:1px,rx:6px,ry:6px;
-    classDef ui fill:#d1e7dd,stroke:#0f5132,stroke-width:1px,rx:6px,ry:6px;
+    U[UI / User API]
+    B[Booking Service]
+    A[Access Service]
+    Q[Quota Service]
+    N[Notification Service]
+    R[(RabbitMQ Broker)]
 
-    %% --- NODES ---
-    U[UI / User API]:::ui
-    B[Booking Service]:::service
-    A[Access Service]:::service
-    Q[Quota Service]:::service
-    N[Notification Service]:::service
-    R[(RabbitMQ Broker)]:::broker
-
-    %% --- FLOWS ---
     %% User Interaction
     U -->|HTTP REST| B
 
@@ -46,15 +39,13 @@ flowchart TB
     R -->|BookingReady| N
 
     %% Notification informs user
-    N -->|Send confirmation / log info| U
+    N -->|Send confirmation| U
 
     %% Optional check-in/out cycle
     U -->|Check-in / Check-out (HTTP)| B
     B -->|StatusUpdated| R
     R -->|StatusUpdated| N
 
-    %% --- TITLES ---
-    %% Visual grouping
     subgraph Microservices
         A
         B
@@ -63,7 +54,6 @@ flowchart TB
     end
 
 ```
-
 
 ### 🧠 Description des composants
 
@@ -86,7 +76,7 @@ flowchart TB
 
 - **Python 3.11**
 - **FastAPI** (pour les APIs REST)
-- **SQLModel / SQLite** (pour la persistance des données)
+- **SQLModel** (pour la persistance des données)
 - **RabbitMQ** (communication interservices)
 - **HTMX + Jinja2** (pour l’interface web)
 - **Docker Compose** (orchestration des services)
@@ -138,7 +128,7 @@ curl -X POST http://localhost:8000/v1/bookings \
 
 ### ➡️ Réponse attendue 
 
-```bash
+```
 {
   "id": 10,
   "user_id": 7,
@@ -151,7 +141,7 @@ curl -X POST http://localhost:8000/v1/bookings \
 
 ### Consulter la réservation
 
-```bash
+```
 {
   "id": 10,
   "user_id": 7,
@@ -174,7 +164,7 @@ curl -X POST "http://localhost:8000/v1/bookings/10/checkin?code=707684"
 
 ### ➡️ Réponse attendue dans le cas où c'est l'heure de la réservation   
 
-```bash
+```
  {"detail": "IN_USE"}"
 
 ```
@@ -200,6 +190,9 @@ On pourra par la suite :
 L’UI est développée avec HTMX + Jinja2, rendant l’expérience fluide et réactive.    
 
 👉 Pour que les changements prennent place faut actualiser la page après chaque modification pour pouvoir les changements.
+
+
+<img width="1364" height="822" alt="image" src="https://github.com/user-attachments/assets/90e45fff-ed0c-4600-a82c-01d556f8e3c9" />
 
 
 
@@ -247,3 +240,4 @@ Ayat Allah EL Anouar, Elmamoune Mikou
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [HTMX](https://htmx.org/)   
+
