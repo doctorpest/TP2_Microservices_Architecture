@@ -169,6 +169,12 @@ curl -X POST http://localhost:8000/v1/bookings \
 
 ```
 
+
+### Envoie de la notification (mock)   
+
+<img width="1098" height="299" alt="image" src="https://github.com/user-attachments/assets/48f7fed1-5642-488d-9a3b-c8d4ee28a071" />
+
+
 ### Check-in avec le code d’accès
 
 Faut récupérer le code généré ainsi que l'id de l'utilisateur à partir de la consultation de la réservation qu'on a fait juste auparavant. Faut faire attention le chekin ne passe pas si la date et heure du début de la réservation n'est pas encore arrivé.    
@@ -256,6 +262,7 @@ Ayat Allah EL Anouar, Elmamoune Mikou
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [HTMX](https://htmx.org/)   
+
 
 
 
