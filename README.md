@@ -53,6 +53,65 @@ flowchart TB
   end
 ```
 
+```mermaid
+flowchart LR
+  %% NODES
+  U[UI / User]
+  B[Booking]
+  A[Access]
+  Q[Quota]
+  N[Notification]
+  R[(RabbitMQ)]
+
+  %% REST (en haut)
+  U -->|REST| B
+  U -->|Check-in<br/>Check-out| B
+
+  %% EVENTS (milieu et bas, sans croiser)
+  B -->|BookingCreated| R
+  R -->|BookingCreated| A
+  R -->|BookingCreated| Q
+
+  A -->|AccessCodeIssued| R
+  Q -->|QuotaReserved| R
+
+  R -->|AccessCodeIssued| B
+  R -->|QuotaReserved| B
+
+  B -->|BookingReady| R
+  R -->|BookingReady| N
+```
+
+```mermaid
+sequenceDiagram
+  participant U as UI/User
+  participant B as Booking
+  participant R as RabbitMQ
+  participant A as Access
+  participant Q as Quota
+  participant N as Notification
+
+  U->>B: POST /v1/bookings
+  B-->>R: BookingCreated
+  R-->>A: BookingCreated
+  R-->>Q: BookingCreated
+  A-->>R: AccessCodeIssued
+  Q-->>R: QuotaReserved
+  R-->>B: AccessCodeIssued
+  R-->>B: QuotaReserved
+  B-->>R: BookingReady
+  R-->>N: BookingReady
+
+  U->>B: Check-in (code)
+  B-->>R: StatusUpdated
+  R-->>N: StatusUpdated
+
+  U->>B: Check-out
+  B-->>R: StatusUpdated
+  R-->>N: StatusUpdated
+```
+
+
 ### 🧠 Description des composants
 
 | Service | Rôle |
@@ -238,5 +297,6 @@ Ayat Allah EL Anouar, Elmamoune Mikou
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [HTMX](https://htmx.org/)   
+
 
 
